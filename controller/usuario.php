@@ -27,8 +27,6 @@ switch ($_GET["op"]) {
      break;
 
 
-
-
     case "GetAll_Usuarios":
         $datos = $usuario->get_usuarios();
         echo json_encode($datos);
@@ -39,3 +37,4 @@ switch ($_GET["op"]) {
 
 
 }
+?>
