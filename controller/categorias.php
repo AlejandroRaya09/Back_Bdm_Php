@@ -34,6 +34,8 @@ case "eliminarCategoria":
     $datos = $categoria -> eliminarCategoria($body['Id_Categoria']);
     echo json_encode($datos);
 break;
+
+
 }
 
 
