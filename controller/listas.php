@@ -35,6 +35,16 @@ switch ($_GET["op"]){
         $datos = $lista -> listarListaID($body['Id_Lista']);
         echo json_encode($datos);
     break;
+
+    case "listarListaACTIVA":
+        $datos = $lista -> listarListaACTIVA($body['Id_Usuario']);
+        echo json_encode($datos);
+    break;
+
+    case "hacerActiva":
+        $datos = $lista -> hacerActiva($body['Id_Usuario'],$body['Id_Lista']);
+        echo json_encode($datos);
+    break;
 }
 
 

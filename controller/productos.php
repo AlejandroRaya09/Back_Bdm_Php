@@ -47,7 +47,30 @@ switch ($_GET["op"]){
         echo json_encode($datos);
     break;
 
+    case "listarProductoADMIN":
+        $datos = $producto -> listarProductoADMIN();
+        echo json_encode($datos);
+    break;
 
+    case "autorizarProd":
+        $datos = $producto -> autorizarProd($body['Id_Producto'],$body['Id_Usuario']);
+        echo json_encode($datos);
+    break;
+
+    case "NoautorizarProd":
+        $datos = $producto -> NoautorizarProd($body['Id_Producto'],$body['Id_Usuario']);
+        echo json_encode($datos);
+    break;
+
+    case "listarProductosFav":
+        $datos = $producto -> listarProductosFav();
+        echo json_encode($datos);
+    break;
+
+    case "listarProductosTODOS":
+        $datos = $producto -> listarProductosTODOS();
+        echo json_encode($datos);
+    break;
 }
 
 

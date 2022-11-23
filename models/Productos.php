@@ -92,5 +92,57 @@ class Producto extends Conectar{
         return $result = $sql ->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public function listarProductoADMIN(){
+        $conectar = parent:: Conexion();
+        parent::set_names();
+        $sql = "CALL sp_listarProductos('ProductosAdmin',Null,Null)";
+        $sql = $conectar -> prepare ($sql);
+        $sql -> execute();
+        return $result = $sql -> fetchAll(PDO::FETCH_ASSOC);
+    }
 
+    public function autorizarProd($pId_Producto,$pId_Usuario){
+
+        $conectar = parent::Conexion();
+        parent::set_names();
+        $sql = "CALL sp_GestionProductos('Autorizado',?,Null,Null,Null,Null,Null,?,Null,Null,Null,Null,Null)";
+        $sql = $conectar -> prepare ($sql);
+        $sql ->bindValue(1,$pId_Producto);
+        $sql ->bindValue(2,$pId_Usuario);
+        $sql-> execute();
+        return $result = $sql ->fetchAll(PDO::FETCH_ASSOC);
 }
+
+
+public function NoautorizarProd($pId_Producto,$pId_Usuario){
+
+    $conectar = parent::Conexion();
+    parent::set_names();
+    $sql = "CALL sp_GestionProductos('No_Autorizado',?,Null,Null,Null,Null,Null,?,Null,Null,Null,Null,Null)";
+    $sql = $conectar -> prepare ($sql);
+    $sql ->bindValue(1,$pId_Producto);
+    $sql ->bindValue(2,$pId_Usuario);
+    $sql-> execute();
+    return $result = $sql ->fetchAll(PDO::FETCH_ASSOC);
+}
+
+public function listarProductosFav(){
+    $conectar = parent:: Conexion();
+    parent::set_names();
+    $sql = "CALL sp_listarProductos('Favoritos',Null,Null)";
+    $sql = $conectar -> prepare ($sql);
+    $sql -> execute();
+    return $result = $sql -> fetchAll(PDO::FETCH_ASSOC);
+}
+
+public function listarProductosTODOS(){
+    $conectar = parent:: Conexion();
+    parent::set_names();
+    $sql = "CALL sp_listarProductos('TODOS',Null,Null)";
+    $sql = $conectar -> prepare ($sql);
+    $sql -> execute();
+    return $result = $sql -> fetchAll(PDO::FETCH_ASSOC);
+}
+}
+
+?>

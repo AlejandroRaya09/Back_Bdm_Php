@@ -67,6 +67,27 @@ class Lista extends Conectar{
         return $result = $sql -> fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public function listarListaACTIVA($pId_User){
+        $conectar = parent:: Conexion();
+        parent::set_names();
+        $sql = "CALL sp_listarListas('Activa',Null,?)";
+        $sql = $conectar -> prepare ($sql);
+        $sql ->bindValue(1,$pId_User);
+        $sql -> execute();
+        return $result = $sql -> fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function hacerActiva($pUsuario,$pId_Lista){
+        $conectar = parent:: Conexion();
+        parent::set_names();
+        $sql = "CALL sp_GestionListas('Activa',Null,Null,?,NULL,?)";
+        $sql = $conectar -> prepare ($sql);
+        $sql ->bindValue(1,$pUsuario);
+        $sql ->bindValue(2,$pId_Lista);
+        $sql -> execute();
+        return $result = $sql -> fetchAll(PDO::FETCH_ASSOC);
+    }
+
 }
 
 
