@@ -45,6 +45,21 @@ switch ($_GET["op"]){
         $datos = $lista -> hacerActiva($body['Id_Usuario'],$body['Id_Lista']);
         echo json_encode($datos);
     break;
+
+    case "agregarDetalleLista":
+        $datos = $lista -> agregarDetalleLista($body['Id_Lista'],$body['Id_Producto']);
+        echo json_encode($datos);
+    break;
+
+    case "ListaDetalle":
+        $datos = $lista -> ListaDetalle($body['Id_Lista']);
+        echo json_encode($datos);
+    break;
+
+    case "EliminarDetalleLista":
+        $datos = $lista -> EliminarDetalleLista($body['Id_Lista_Detalle']);
+        echo json_encode($datos);
+    break;
 }
 
 

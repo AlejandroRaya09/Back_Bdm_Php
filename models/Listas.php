@@ -10,7 +10,7 @@ class Lista extends Conectar{
     public function agregarLista($pNombre, $pDescripcion, $pUsuario, $pTipo){
         $conectar = parent:: Conexion();
         parent::set_names();
-        $sql = "CALL sp_GestionListas('Insert',?,?,?,?,Null)";
+        $sql = "CALL sp_GestionListas('Insert',?,?,?,?,Null,Null,Null)";
         $sql = $conectar -> prepare ($sql);
         $sql ->bindValue(1,$pNombre);
         $sql ->bindValue(2,$pDescripcion);
@@ -24,7 +24,7 @@ class Lista extends Conectar{
     public function editarLista($pNombre, $pDescripcion,$pUsuario, $pTipo, $pId_Lista){
         $conectar = parent:: Conexion();
         parent::set_names();
-        $sql = "CALL sp_GestionListas('Update',?,?,?,?,?)";
+        $sql = "CALL sp_GestionListas('Update',?,?,?,?,?,Null,Null)";
         $sql = $conectar -> prepare ($sql);
         $sql ->bindValue(1,$pNombre);
         $sql ->bindValue(2,$pDescripcion);
@@ -39,7 +39,7 @@ class Lista extends Conectar{
     public function eliminarLista($pId_Lista){
         $conectar = parent:: Conexion();
         parent::set_names();
-        $sql = "CALL sp_GestionListas('Delete',Null,Null,Null,NULL,?)";
+        $sql = "CALL sp_GestionListas('Delete',Null,Null,Null,NULL,?,Null,Null)";
         $sql = $conectar -> prepare ($sql);
         $sql ->bindValue(1,$pId_Lista);
         $sql -> execute();
@@ -80,7 +80,7 @@ class Lista extends Conectar{
     public function hacerActiva($pUsuario,$pId_Lista){
         $conectar = parent:: Conexion();
         parent::set_names();
-        $sql = "CALL sp_GestionListas('Activa',Null,Null,?,NULL,?)";
+        $sql = "CALL sp_GestionListas('Activa',Null,Null,?,NULL,?,Null,Null)";
         $sql = $conectar -> prepare ($sql);
         $sql ->bindValue(1,$pUsuario);
         $sql ->bindValue(2,$pId_Lista);
@@ -88,6 +88,37 @@ class Lista extends Conectar{
         return $result = $sql -> fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public function agregarDetalleLista($pId_Lista,$pId_Producto){
+        $conectar = parent:: Conexion();
+        parent::set_names();
+        $sql = "CALL sp_GestionListas('ListaDetalleAgregar',Null,Null,Null,NULL,?,Null,?)";
+        $sql = $conectar -> prepare ($sql);
+        $sql ->bindValue(1,$pId_Lista);
+        $sql ->bindValue(2,$pId_Producto);
+        $sql -> execute();
+        return $result = $sql -> fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    
+    public function ListaDetalle($pId_Lista){
+        $conectar = parent:: Conexion();
+        parent::set_names();
+        $sql = "CALL sp_listarListas('ListaDetalle',?,Null)";
+        $sql = $conectar -> prepare ($sql);
+        $sql ->bindValue(1,$pId_Lista);
+        $sql -> execute();
+        return $result = $sql -> fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function EliminarDetalleLista($pId_Lista_Detalle){
+        $conectar = parent:: Conexion();
+        parent::set_names();
+        $sql = "CALL sp_GestionListas('EliminarDetalleLista',Null,Null,Null,NULL,Null,?,Null)";
+        $sql = $conectar -> prepare ($sql);
+        $sql ->bindValue(1,$pId_Lista_Detalle);
+        $sql -> execute();
+        return $result = $sql -> fetchAll(PDO::FETCH_ASSOC);
+    }
 }
 
 
