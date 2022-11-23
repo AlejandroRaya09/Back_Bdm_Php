@@ -18,7 +18,7 @@ switch ($_GET["op"]) {
     break;
 
     case "editarDomicilio":
-            $datos = $domicilio -> editarDomicilio($body['Id_Domicilio'],$body['Calle'],$body['Numero'],$body['Colonia'],$body['CP'],$body['Municipio'],$body['Esatdo']);
+            $datos = $domicilio -> editarDomicilio($body['Id_Domicilio'],$body['Calle'],$body['Numero'],$body['Colonia'],$body['CP'],$body['Municipio'],$body['Estado']);
             echo json_encode($datos);
     break;
 
@@ -33,10 +33,11 @@ switch ($_GET["op"]) {
     break;
 
     case "listarDomicilioID":
-    $datos = $domicilio ->  listarDomiciliosID ($body['Id_Domicilio']);
+    $datos = $domicilio -> listarDomiciliosID ($body['Id_Domicilio']);
     echo json_encode($datos);
     break;
 
 
 
 }
+?>
