@@ -21,7 +21,7 @@ class Usuario extends Conectar{
     public function agregarUsuario($pPNombre,$pSNombre,$pPApellido,$pSApellido,$pGenero,$pCorreo,$pUsername,$pPassword,$pRoll,$pPerfil){
         $conectar = parent::Conexion();
         parent::set_names();
-        $sql = "CALL sp_GestionUsuario('Insert',?,?,?,?,?,?,?,?,?,?)";
+        $sql = "CALL sp_GestionUsuario('Insert',?,?,?,?,?,?,?,?,?,?,NULL)";
         $sql = $conectar -> prepare ($sql);
         $sql ->bindValue(1,$pPNombre);
         $sql ->bindValue(2,$pSNombre);
@@ -37,11 +37,33 @@ class Usuario extends Conectar{
         return $result = $sql ->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function get_usuarios(){
+    public function listarUsuarioID($pId_Usuario){
+        $conectar = parent:: Conexion();
+        parent::set_names();
+        $sql = "CALL sp_listarUsuario('ID',?)";
+        $sql = $conectar -> prepare ($sql);
+        $sql ->bindValue(1,$pId_Usuario);
+        $sql -> execute();
+        return $result = $sql -> fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    
+    public function editarUsuario($pPNombre,$pSNombre,$pPApellido,$pSApellido,$pGenero,$pCorreo,$pUsername,$pPassword,$pPerfil,$pId_Usuario){
         $conectar = parent::Conexion();
         parent::set_names();
-        $sql = "CALL sp_listarUsuarios()";
+        $sql = "CALL sp_GestionUsuario('Update',?,?,?,?,?,?,?,?,Null,?,?)";
         $sql = $conectar -> prepare ($sql);
+        $sql ->bindValue(1,$pPNombre);
+        $sql ->bindValue(2,$pSNombre);
+        $sql ->bindValue(3,$pPApellido);
+        $sql ->bindValue(4,$pSApellido);
+        $sql ->bindValue(5,$pGenero);
+        $sql ->bindValue(6,$pCorreo);
+        $sql ->bindValue(7,$pUsername);
+        $sql ->bindValue(8,$pPassword);
+        $sql ->bindValue(9,$pPerfil);
+        $sql ->bindValue(10,$pId_Usuario);
+
         $sql-> execute();
         return $result = $sql ->fetchAll(PDO::FETCH_ASSOC);
     }

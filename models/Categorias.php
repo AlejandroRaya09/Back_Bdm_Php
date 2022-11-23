@@ -28,7 +28,7 @@ class Categoria extends Conectar{
     public function agregarCategoria($pNombre, $pDescripcion, $pUsuario){
         $conectar = parent:: Conexion();
         parent::set_names();
-        $sql = "CALL sp_GestionCategoria('Insert',?,?,?, Null)";
+        $sql = "CALL sp_GestionCategoria('Insert',?,?,?, Null,NULL,NULL,NULL)";
         $sql = $conectar -> prepare ($sql);
         $sql ->bindValue(1,$pNombre);
         $sql ->bindValue(2,$pDescripcion);
@@ -50,7 +50,7 @@ class Categoria extends Conectar{
     public function editarCategoria($pNombre, $pDescripcion, $pId_Categoria){
         $conectar = parent:: Conexion();
         parent::set_names();
-        $sql = "CALL sp_GestionCategoria('Update',?,?,Null,?)";
+        $sql = "CALL sp_GestionCategoria('Update',?,?,Null,?,NULL,NULL,NULL)";
         $sql = $conectar -> prepare ($sql);
         $sql ->bindValue(1,$pNombre);
         $sql ->bindValue(2,$pDescripcion);
@@ -62,11 +62,33 @@ class Categoria extends Conectar{
     public function eliminarCategoria($pId_Categoria){
         $conectar = parent:: Conexion();
         parent::set_names();
-        $sql = "CALL sp_GestionCategoria('Delete',Null,Null,Null,?)";
+        $sql = "CALL sp_GestionCategoria('Delete',Null,Null,Null,?,NULL,NULL,NULL)";
         $sql = $conectar -> prepare ($sql);
         $sql ->bindValue(1,$pId_Categoria);
         $sql -> execute();
         return $result = $sql -> fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public function agregarCategoriaDetalle($pId_Producto,$pId_Categoria){
+        $conectar = parent:: Conexion();
+        parent::set_names();
+        $sql = "CALL sp_GestionCategoria('AgregarCatego',Null,Null,Null,?,NULL,?,NULL)";
+        $sql = $conectar -> prepare ($sql);
+        $sql ->bindValue(1,$pId_Categoria);
+        $sql ->bindValue(2,$pId_Producto);
+
+        $sql -> execute();
+        return $result = $sql -> fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function eliminarCategoriaDetalle($pId_CategoriaDetalle){
+        $conectar = parent:: Conexion();
+        parent::set_names();
+        $sql = "CALL sp_GestionCategoria('EliminarCatego',Null,Null,Null,Null,?,NULL,NULL)";
+        $sql = $conectar -> prepare ($sql);
+        $sql ->bindValue(1,$pId_CategoriaDetalle);
+        $sql -> execute();
+        return $result = $sql -> fetchAll(PDO::FETCH_ASSOC);
+    }
+    
 }

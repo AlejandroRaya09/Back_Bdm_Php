@@ -27,13 +27,16 @@ switch ($_GET["op"]) {
      break;
 
 
-    case "GetAll_Usuarios":
-        $datos = $usuario->get_usuarios();
+    case "listarUsuarioID":
+        $datos = $usuario -> listarUsuarioID($body['Id_Usuario']);
         echo json_encode($datos);
-        break;
+    break;
 
-
-     
+    case "editarUsuario":
+        $datos = $usuario->editarUsuario($body['P_Nombre'],$body['S_Nombre'],$body['P_Apellido'],$body['S_Apellido'], $body['Genero'],
+        $body['Correo'], $body['Username'],$body['Password'],$body['TipoPerfil'],$body['Id_Usuario']);
+            echo json_encode($datos);
+     break;
 
 
 }

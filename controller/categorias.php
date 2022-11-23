@@ -35,6 +35,16 @@ case "eliminarCategoria":
     echo json_encode($datos);
 break;
 
+case "agregarCategoriaDetalle":
+    $datos = $categoria -> agregarCategoriaDetalle($body['Id_Producto'],$body['Id_Categoria']);
+    echo json_encode($datos);
+break;
+
+
+case "eliminarCategoriaDetalle":
+    $datos = $categoria -> eliminarCategoriaDetalle($body['Id_CategoriaDetalle']);
+    echo json_encode($datos);
+break;
 
 }
 
