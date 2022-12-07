@@ -21,25 +21,14 @@ switch ($_GET["op"]) {
         $imagenSubida= fopen($temporal, 'r');
         $binariosImagen = fread($imagenSubida,$imagen_size);
 
-        $datos = $imagen->AgregarImagen($binariosImagen);
+       $datos = $imagen->AgregarImagen($binariosImagen);
         echo json_encode($datos);
-
         }
         break;
 
-
-       /*
-        $tipoArchivo = $body['imgType'];
-        $nombreArchivo = $body['imgName'];
-        $tamArchivo = $body['imgSize'];
-        $imagenSubida= fopen(, 'r');
-        $binariosImagen = fread($imagenSubida,$tamArchivo);
-
-        $datos = $imagen->AgregarImagen($body['Id_Producto'],$binariosImagen);
-        echo json_encode($datos);
-        break;
-        */
-
-       // $datos = $imagen->AgregarImagen($body['Imagen']);
+    case "agregarImagen_ID":
+            $datos = $imagen -> AgregarImagen_ID($body['Id_Producto']);
+            echo json_encode($datos);
+    break;
 
 }
