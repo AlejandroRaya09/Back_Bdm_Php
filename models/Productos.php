@@ -27,7 +27,7 @@ class Producto extends Conectar{
     public function listarProductosVendedor($pId_Usuario){
         $conectar = parent:: Conexion();
         parent::set_names();
-        $sql = "CALL sp_listarProductos('Vendedor',?,Null)";
+        $sql = "CALL sp_listarProductos('Vendedor',?,Null,Null)";
         $sql = $conectar -> prepare ($sql);
         $sql ->bindValue(1,$pId_Usuario);
         $sql -> execute();
@@ -37,7 +37,7 @@ class Producto extends Conectar{
     public function listarProductosVendedorCategoria($pId_Producto){
         $conectar = parent:: Conexion();
         parent::set_names();
-        $sql = "CALL sp_listarProductos('CategoriasVendedor',Null,?)";
+        $sql = "CALL sp_listarProductos('CategoriasVendedor',Null,?,Null)";
         $sql = $conectar -> prepare ($sql);
         $sql ->bindValue(1,$pId_Producto);
         $sql -> execute();
@@ -47,7 +47,7 @@ class Producto extends Conectar{
     public function listarProductoIDVendedor($pId_Producto){
         $conectar = parent:: Conexion();
         parent::set_names();
-        $sql = "CALL sp_listarProductos('IDVendedor',Null,?)";
+        $sql = "CALL sp_listarProductos('IDVendedor',Null,?,Null)";
         $sql = $conectar -> prepare ($sql);
         $sql ->bindValue(1,$pId_Producto);
         $sql -> execute();
@@ -95,7 +95,7 @@ class Producto extends Conectar{
     public function listarProductoADMIN(){
         $conectar = parent:: Conexion();
         parent::set_names();
-        $sql = "CALL sp_listarProductos('ProductosAdmin',Null,Null)";
+        $sql = "CALL sp_listarProductos('ProductosAdmin',Null,Null,Null)";
         $sql = $conectar -> prepare ($sql);
         $sql -> execute();
         return $result = $sql -> fetchAll(PDO::FETCH_ASSOC);
@@ -129,7 +129,7 @@ public function NoautorizarProd($pId_Producto,$pId_Usuario){
 public function listarProductosFav(){
     $conectar = parent:: Conexion();
     parent::set_names();
-    $sql = "CALL sp_listarProductos('Favoritos',Null,Null)";
+    $sql = "CALL sp_listarProductos('Favoritos',Null,Null,Null)";
     $sql = $conectar -> prepare ($sql);
     $sql -> execute();
     return $result = $sql -> fetchAll(PDO::FETCH_ASSOC);
@@ -138,8 +138,18 @@ public function listarProductosFav(){
 public function listarProductosTODOS(){
     $conectar = parent:: Conexion();
     parent::set_names();
-    $sql = "CALL sp_listarProductos('TODOS',Null,Null)";
+    $sql = "CALL sp_listarProductos('TODOS',Null,Null,Null)";
     $sql = $conectar -> prepare ($sql);
+    $sql -> execute();
+    return $result = $sql -> fetchAll(PDO::FETCH_ASSOC);
+}
+
+public function listarBuscar($pNombreProducto){
+    $conectar = parent:: Conexion();
+    parent::set_names();
+    $sql = "CALL sp_listarProductos('Buscar',Null,Null,?)";
+    $sql = $conectar -> prepare ($sql);
+    $sql ->bindValue(1,$pNombreProducto);
     $sql -> execute();
     return $result = $sql -> fetchAll(PDO::FETCH_ASSOC);
 }

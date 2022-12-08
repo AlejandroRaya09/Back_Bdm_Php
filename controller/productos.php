@@ -71,6 +71,11 @@ switch ($_GET["op"]){
         $datos = $producto -> listarProductosTODOS();
         echo json_encode($datos);
     break;
+
+    case "listarBuscar":
+        $datos = $producto -> listarBuscar($body['NombreProducto']);
+        echo json_encode($datos);
+    break;
 }
 
 
